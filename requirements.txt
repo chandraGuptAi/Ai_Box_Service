@@ -1,0 +1,28 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic-settings>=2.4
+pyyaml>=6.0
+
+# dev
+pytest>=8.0
+httpx>=0.27
+
+# Attachment inspection and template editing
+python-multipart>=0.0.20
+PyMuPDF>=1.26,<3
+openpyxl>=3.1,<4
+python-docx>=1.2,<2
+python-pptx>=1.0,<2
+Pillow>=11,<14
+defusedxml>=0.7,<1
+
+# Privacy filter (local name detection; no network calls at runtime)
+spacy>=3.8,<3.9
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
+xx-ent-wiki-sm @ https://github.com/explosion/spacy-models/releases/download/xx_ent_wiki_sm-3.8.0/xx_ent_wiki_sm-3.8.0-py3-none-any.whl
+
+# Report memory: multilingual question similarity on CPU. The extra index serves the CPU-only torch
+# build (~200 MB); without it Linux pip downloads the CUDA build (2.5 GB+).
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.5.1+cpu
+sentence-transformers==3.3.1

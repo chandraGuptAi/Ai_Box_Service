@@ -1,0 +1,41 @@
+# Enabled modules. Each key is a folder name in app/modules/.
+#   - Disable a module:  set `enabled: false` (or delete its entry)
+#   - Remove a module:   delete its entry here + delete app/modules/<name>/
+#   - Add a module:      python scripts/new_module.py <name>
+# Any extra keys under a module are passed to it as `self.config`.
+# `prefix` overrides the URL prefix (default: /<name>).
+# `show_in_docs: false` hides the module's APIs from /docs (they still work).
+
+modules:
+  attachments:
+    enabled: true
+
+  privacy:
+    enabled: true   # POST /api/privacy/filter, used by AI_python_backend before every AI call
+
+  shipments:
+    enabled: true   # POST /api/shipments/fetch, used by AI_python_backend for source=shipment_api
+    base_url: https://intlstagingapi.bigship.in   # overridden by BIGSHIP_SHIPMENT_API_BASE_URL / BIGSHIP_API_BASE_URL
+    path: /api/get-order-list
+    total_timeout: 60
+    max_records: 5000
+    concurrency: 4
+    cache_ttl_seconds: 600     # cleaned results only; 0 disables the cache
+
+  report_memory:
+    enabled: true   # /api/report_memory/*: plan reuse, similar examples, feedback learning
+    db_path: data/report_memory.sqlite
+    model: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2   # REPORT_MEMORY_SEMANTIC=false: spelling only
+    threads: 2                 # CPU threads the model may use
+    min_similarity: 0.45     # measured: Hindi<->English 0.6-0.8, Hinglish 0.45-0.5, unrelated <0.2
+
+  health:
+    enabled: true
+    show_in_docs: false
+
+  channel_wise_report:
+    enabled: true
+    base_url: https://intlstagingapi.bigship.in   # overridden by BIGSHIP_API_BASE_URL in .env
+    timeout_seconds: 15
+    orders_page_size: 1000     # 1st call's perPage; if totalRecords is larger, a 2nd call asks perPage=totalRecords
+    orders_max_records: 5000   # larger channels get 413 instead of a huge response

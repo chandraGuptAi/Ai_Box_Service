@@ -1,0 +1,35 @@
+services:
+  ai-box-service:
+    build: .
+    image: ai-box-service:local
+    # requirements.txt pins the x86-64 CPU PyTorch wheel.
+    platform: linux/amd64
+    restart: unless-stopped
+    init: true
+    env_file:
+      - .env
+    environment:
+      ENV: production
+      DEBUG: "false"
+      API_PREFIX: /api
+      SERVICE_TOKEN: ${SERVICE_TOKEN:?Set a non-empty SERVICE_TOKEN in .env}
+      ATTACHMENT_STORAGE_DIR: /app/data/attachments
+      REPORT_MEMORY_DB: /app/data/report_memory.sqlite
+      HF_HOME: /app/data/huggingface
+    ports:
+      - "${BIND_HOST:-127.0.0.1}:${PUBLISHED_PORT:-8100}:8100"
+    volumes:
+      - ai-box-data:/app/data
+    stop_grace_period: 45s
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  ai-box-data:
