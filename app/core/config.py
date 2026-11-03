@@ -19,6 +19,8 @@ class Settings(BaseSettings):
     PORT: int = 8100
     API_PREFIX: str = "/api"
     LOG_LEVEL: str = "INFO"
+    # JSON array in .env; use explicit frontend origins.
+    CORS_ALLOWED_ORIGINS: list[str] = ["http://localhost:4200"]
     # Shared secret with the AI_python_backend gateway; empty disables the check (local dev only).
     SERVICE_TOKEN: str = ""
     MODULES_FILE: Path = BASE_DIR / "modules.yaml"
@@ -30,6 +32,11 @@ class Settings(BaseSettings):
     ATTACHMENT_VISION_MODEL: str = ''
     ATTACHMENT_VISION_API_KEY: str = ''
     ATTACHMENT_VISION_MAX_IMAGES: int = 10
+    # Audit log module: Voice AI (AI calling) admin API. The admin key never leaves this server.
+    VOICEAI_BASE_URL: str = ""
+    VOICEAI_ADMIN_KEY: str = ""
+    # Key callers send in X-Audit-Key to read audit logs; empty disables the audit log API.
+    AUDIT_LOG_API_KEY: str = ""
 
 
 @lru_cache

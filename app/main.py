@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import get_settings
 from app.core.logger import get_logger, setup_logging
@@ -31,6 +32,14 @@ def create_app() -> FastAPI:
         lifespan=lifespan,
     )
     app.middleware("http")(service_token_middleware)
+    # Added last so preflight runs before authentication and auth errors get CORS headers.
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.CORS_ALLOWED_ORIGINS,
+        allow_methods=["*"],
+        allow_headers=["*"],
+        expose_headers=["Content-Disposition"],
+    )
     register_modules(app)
     return app
 

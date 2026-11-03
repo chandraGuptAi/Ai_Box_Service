@@ -1,0 +1,129 @@
+
+Initial Chunk Files                                                                          | Names                                                        |  Raw Size
+vendor.js                                                                                    | vendor                                                       |  10.24 MB |
+scripts.js                                                                                   | scripts                                                      |   2.92 MB |
+polyfills.js                                                                                 | polyfills                                                    |   1.15 MB |
+main.js                                                                                      | main                                                         | 931.05 kB |
+styles.css, styles.js                                                                        | styles                                                       | 588.81 kB |
+runtime.js                                                                                   | runtime                                                      |  14.49 kB |
+
+| Initial Total                                                |  15.82 MB
+
+Lazy Chunk Files                                                                             | Names                                                        |  Raw Size
+src_app_modules_user-info_user-info_module_ts.js                                             | modules-user-info-user-info-module                           |   3.05 MB |
+src_app_modules_user-info_order-draft_order-draft_module_ts.js                               | order-draft-order-draft-module                               |   1.37 MB |
+src_app_modules_user-info_role-management_role-management_module_ts.js                       | role-management-role-management-module                       | 796.72 kB |
+src_app_modules_user-info_user-management_user-management_module_ts.js                       | user-management-user-management-module                       | 601.50 kB |
+node_modules_quill_dist_quill_js.js                                                          | quill                                                        | 509.86 kB |
+src_app_modules_user-info_ops_ops_module_ts.js                                               | ops-ops-module                                               | 309.63 kB |
+src_app_modules_user-info_notifications_notifications_module_ts.js                           | notifications-notifications-module                           | 280.38 kB |
+src_app_modules_user-info_finance_finance_module_ts.js                                       | finance-finance-module                                       | 280.06 kB |
+src_app_modules_user-info_spot-rates_spot-rates_module_ts.js                                 | spot-rates-spot-rates-module                                 | 270.73 kB |
+src_app_modules_user-info_warehouse_warehouse_module_ts.js                                   | warehouse-warehouse-module                                   | 265.64 kB |
+src_app_modules_user-info_reports_reports_module_ts.js                                       | reports-reports-module                                       | 219.54 kB |
+src_app_modules_user-info_finance_transactions_transactions_module_ts.js                     | transactions-transactions-module                             | 209.78 kB |
+src_app_modules_user-info_appointment-based-delivery_appointment-based-delivery_module_ts.js | appointment-based-delivery-appointment-based-delivery-module | 199.53 kB |
+src_app_modules_user-info_over-weight_over-weight_module_ts.js                               | over-weight-over-weight-module                               | 191.22 kB |
+src_app_modules_user-info_voice-ai_voice-ai_module_ts.js                                     | voice-ai-voice-ai-module                                     | 187.90 kB |
+src_app_modules_user-info_order-listing_order-listing_module_ts.js                           | order-listing-order-listing-module                           | 187.68 kB |
+src_app_modules_user-info_spot-rates_vendors_vendors_module_ts.js                            | vendors-vendors-module                                       | 176.60 kB |
+src_app_modules_user-info_pincode-serviceability_pincode-serviceability_module_ts.js         | pincode-serviceability-pincode-serviceability-module         | 150.09 kB |
+src_app_modules_user-info_ip-configuration_ip-configuration_module_ts.js                     | ip-configuration-ip-configuration-module                     | 140.30 kB |
+src_app_modules_user-info_shopify_shopify_module_ts.js                                       | shopify-shopify-module                                       | 126.89 kB |
+src_app_modules_dashboard_dashboard_module_ts.js                                             | modules-dashboard-dashboard-module                           | 124.32 kB |
+src_app_authentication_authentication_module_ts.js                                           | authentication-authentication-module                         | 105.37 kB |
+src_app_modules_user-info_saas_saas_module_ts.js                                             | user-info-saas-saas-module                                   |  67.14 kB |
+src_app_modules_user-info_order-draft-management_vas_vas_module_ts.js                        | vas-vas-module                                               |  63.44 kB |
+src_app_modules_user-info_plans_plans_module_ts.js                                           | plans-plans-module                                           |  62.14 kB |
+src_app_modules_user-info_order-draft-management_order-draft-management_module_ts.js         | order-draft-management-order-draft-management-module         |  60.51 kB |
+src_app_modules_user-info_concierge_concierge_module_ts.js                                   | concierge-concierge-module                                   |  41.31 kB |
+src_app_modules_user-info_bank_bank_module_ts.js                                             | bank-bank-module                                             |  22.21 kB |
+common.js                                                                                    | common                                                       |  20.54 kB |
+src_app_modules_user-info_report-log_reportlog_module_ts.js                                  | report-log-reportlog-module                                  |  18.44 kB |
+
+Build at: 2026-11-03T09:13:51.948Z - Hash: 3d0dc789ea28c302 - Time: 10247ms
+
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+
+
+√ Compiled successfully.
+
+Initial Chunk Files | Names   |  Raw Size
+main.js             | main    | 931.05 kB |
+runtime.js          | runtime |  14.49 kB |
+
+34 unchanged chunks
+
+Build at: 2026-11-03T09:13:54.779Z - Hash: 35fd98303d54686e - Time: 2523ms
+
+√ Compiled successfully.
+
+Initial Chunk Files | Names   |  Raw Size
+main.js             | main    | 931.05 kB |
+runtime.js          | runtime |  14.49 kB |
+
+34 unchanged chunks
+
+Build at: 2026-11-03T09:15:46.475Z - Hash: fc0533bb9e170805 - Time: 1745ms
+
+√ Compiled successfully.
+
+Initial Chunk Files                                      | Names                    |  Raw Size
+runtime.js                                               | runtime                  |  14.49 kB |
+
+Lazy Chunk Files                                         | Names                    |  Raw Size
+src_app_modules_user-info_voice-ai_voice-ai_module_ts.js | voice-ai-voice-ai-module | 189.28 kB |
+
+34 unchanged chunks
+
+Build at: 2026-11-03T09:24:09.740Z - Hash: 18df0d5446811182 - Time: 2040ms
+
+√ Compiled successfully.
+
+Initial Chunk Files                                      | Names                    |  Raw Size
+main.js                                                  | main                     | 931.02 kB |
+runtime.js                                               | runtime                  |  14.49 kB |
+
+Lazy Chunk Files                                         | Names                    |  Raw Size
+src_app_modules_user-info_voice-ai_voice-ai_module_ts.js | voice-ai-voice-ai-module | 189.44 kB |
+
+33 unchanged chunks
+
+Build at: 2026-11-03T09:26:09.753Z - Hash: f9ae52e3c281b0ff - Time: 3469ms
+
+√ Compiled successfully.
+
+Initial Chunk Files | Names   |  Raw Size
+main.js             | main    | 931.03 kB |
+runtime.js          | runtime |  14.49 kB |
+
+34 unchanged chunks
+
+Build at: 2026-11-03T09:27:00.581Z - Hash: f1b8e127af299282 - Time: 1062ms
+
+√ Compiled successfully.
+
+36 unchanged chunks
+
+Build at: 2026-11-03T09:27:01.615Z - Hash: f1b8e127af299282 - Time: 925ms
+
+√ Compiled successfully.
+
+36 unchanged chunks
+
+Build at: 2026-11-03T09:27:02.663Z - Hash: f1b8e127af299282 - Time: 908ms
+
+√ Compiled successfully.
+
+Initial Chunk Files                                      | Names                    |  Raw Size
+main.js                                                  | main                     | 930.98 kB |
+runtime.js                                               | runtime                  |  14.49 kB |
+
+Lazy Chunk Files                                         | Names                    |  Raw Size
+src_app_modules_user-info_voice-ai_voice-ai_module_ts.js | voice-ai-voice-ai-module | 189.24 kB |
+
+33 unchanged chunks
+
+Build at: 2026-11-03T09:27:43.893Z - Hash: bd84303ab4a7b91b - Time: 1858ms
+
+√ Compiled successfully.

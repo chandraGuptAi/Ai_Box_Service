@@ -1,0 +1,17 @@
+- Generating browser application bundles (phase: setup)...
+√ Browser application bundle generation complete.
+
+./src/app/modules/user-info/spot-rates/spot-request-detail/spot-request-detail.component.css?ngResource - Warning: Module Warning (from ./node_modules/postcss-loader/dist/cjs.js):
+Warning
+
+(252:1) autoprefixer: end value has mixed support, consider using flex-end instead
+
+
+√ Browser application bundle generation complete.
+√ Browser application bundle generation complete.
+√ Browser application bundle generation complete.
+√ Browser application bundle generation complete.
+√ Browser application bundle generation complete.
+√ Browser application bundle generation complete.
+√ Browser application bundle generation complete.
+√ Browser application bundle generation complete.

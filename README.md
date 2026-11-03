@@ -14,6 +14,14 @@ python -m app.main              # or: uvicorn app.main:app --reload --port 8100
 
 Docs: http://localhost:8100/docs  ·  Health: http://localhost:8100/api/health
 
+Browser requests from `http://localhost:4200` are allowed by default. Set
+`CORS_ALLOWED_ORIGINS='["http://localhost:4200","https://your-panel.example"]'`
+in `.env` to change the allowed origins, then restart the service. CORS preflight
+is handled before service-token authentication; actual requests still require
+the configured authentication headers. When using a gateway on port 8000, that
+gateway must handle preflight too and map its public path to this service's
+`/api/audit_log/*` routes.
+
 ## Docker (Linux)
 
 The image uses Python 3.11, CPU PyTorch, the required spaCy models and local
@@ -239,3 +247,34 @@ Offline server: download the model once where internet is available and copy the
 `python -c "from sentence_transformers import SentenceTransformer as S; S('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')"`
 then copy `~/.cache/huggingface` to the server and set `HF_HUB_OFFLINE=1`.
 `REPORT_MEMORY_SEMANTIC=false` disables the model (spelling similarity only).
+
+## Audit log (AI calling)
+
+`/api/audit_log/*` reads the Voice AI admin API (`VOICEAI_BASE_URL`, default `https://voiceai.bigship.direct`) with
+`VOICEAI_ADMIN_KEY` from `.env`; the admin key is added here and never returned. Call logs hold every client's
+customer names and phone numbers, so each request needs `X-Audit-Key` equal to `AUDIT_LOG_API_KEY`
+(empty = API disabled, 503). Through the gateway the same paths are `AI_python_backend/api/audit_log/*`.
+
+| Endpoint | Voice AI |
+|---|---|
+| `GET /api/audit_log/call-logs` | `/v1/admin/call-logs`: `total`, `limit`, `offset`, `summary` (calls, answered, talk time, cost), `calls` |
+| `GET /api/audit_log/call-logs/{call_id}` | `/v1/admin/call-logs/{call_id}` |
+| `GET /api/audit_log/call-logs/{call_id}/recording` | `/v1/admin/call-logs/{call_id}/recording` (streamed; `?download=true` to save) |
+| `GET /api/audit_log/call-analyses` | `/v1/admin/call-analyses` |
+
+Filters (all optional): `client_id`, `type` (default `all`), `campaign_id`, `status` (call logs), `outcome`
+(analyses), `phone`, `date_from`, `date_to`, `limit` (1-500, default 50), `offset`. Each call's `recording.url`,
+`play_url` and `download_url` point to the recording endpoint above. A browser `<audio src>` cannot send
+`X-Audit-Key`, so fetch the recording with the header and play the blob.
+
+
+### Call-log CSV export
+
+`GET /api/audit_log/call-logs/export/csv` downloads `call-logs.csv`.
+Send the usual `X-Audit-Key` header and gateway service authentication.
+With no query filters it exports every call; optional `client_id`, `type`,
+`campaign_id`, `status`, `phone`, `date_from`, and `date_to` select matching calls.
+For example: `/api/audit_log/call-logs/export/csv?status=completed&date_from=2026-11-01`.
+The export fetches all matching pages; table `limit` and `offset` are ignored.
+Nested analysis/recording values are JSON cells. UTF-8 BOM supports Excel, and
+formula-like text is prefixed with an apostrophe for safe spreadsheet opening.

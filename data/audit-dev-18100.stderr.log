@@ -1,0 +1,60 @@
+2026-11-03 15:15:38,053 | INFO     | module_loader | Loaded module: attachments
+2026-11-03 15:15:38,054 | INFO     | module_loader | Loaded module: privacy
+2026-11-03 15:15:38,054 | INFO     | module_loader | Loaded module: shipments
+2026-11-03 15:15:38,054 | INFO     | module_loader | Loaded module: report_memory
+2026-11-03 15:15:38,054 | INFO     | module_loader | Loaded module: health
+2026-11-03 15:15:38,054 | INFO     | module_loader | Loaded module: channel_wise_report
+2026-11-03 15:15:38,054 | INFO     | module_loader | Loaded module: audit_log
+INFO:     Started server process [41560]
+INFO:     Waiting for application startup.
+2026-11-03 15:15:40,730 | INFO     | module.privacy | started (local name detector loaded)
+2026-11-03 15:15:40,903 | INFO     | module.shipments | started (Bigship API: https://intlstagingapi.bigship.in)
+2026-11-03 15:15:40,904 | INFO     | module.report_memory | started (4 questions, semantic=True)
+2026-11-03 15:15:41,053 | INFO     | module.channel_wise_report | started (Bigship API: https://intlstagingapi.bigship.in)
+2026-11-03 15:15:41,181 | INFO     | module.audit_log | started (Voice AI: https://voiceai.bigship.direct)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:18100 (Press CTRL+C to quit)
+2026-11-03 15:15:48,195 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&date_from=2099-01-01&limit=500&offset=0 "HTTP/1.1 200 OK"
+2026-11-03 15:16:02,787 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=500&offset=0 "HTTP/1.1 200 OK"
+2026-11-03 15:16:03,472 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=500&offset=500 "HTTP/1.1 200 OK"
+2026-11-03 15:16:03,751 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=500&offset=1000 "HTTP/1.1 200 OK"
+2026-11-03 15:16:03,951 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=500&offset=1500 "HTTP/1.1 200 OK"
+2026-11-03 15:16:04,151 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=500&offset=2000 "HTTP/1.1 200 OK"
+2026-11-03 15:16:04,372 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=500&offset=2500 "HTTP/1.1 200 OK"
+2026-11-03 15:16:04,552 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=500&offset=3000 "HTTP/1.1 200 OK"
+2026-11-03 15:16:04,731 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=500&offset=3500 "HTTP/1.1 200 OK"
+2026-11-03 15:16:04,933 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=500&offset=4000 "HTTP/1.1 200 OK"
+2026-11-03 15:16:05,129 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=500&offset=4500 "HTTP/1.1 200 OK"
+2026-11-03 15:17:55,742 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=20&offset=20 "HTTP/1.1 200 OK"
+2026-11-03 15:17:56,513 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=20&offset=40 "HTTP/1.1 200 OK"
+2026-11-03 15:17:57,181 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=20&offset=60 "HTTP/1.1 200 OK"
+2026-11-03 15:17:58,120 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=20&offset=100 "HTTP/1.1 200 OK"
+2026-11-03 15:17:58,896 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=20&offset=120 "HTTP/1.1 200 OK"
+2026-11-03 15:17:59,464 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=20&offset=140 "HTTP/1.1 200 OK"
+2026-11-03 15:18:04,785 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=campaign&limit=20&offset=0 "HTTP/1.1 200 OK"
+2026-11-03 15:18:08,155 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=campaign&limit=20&offset=0&status=queued "HTTP/1.1 200 OK"
+2026-11-03 15:18:10,042 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=campaign&limit=20&offset=0&status=completed "HTTP/1.1 200 OK"
+2026-11-03 15:18:17,015 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=campaign&limit=500&offset=0&status=completed "HTTP/1.1 200 OK"
+2026-11-03 15:18:17,272 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=campaign&limit=500&offset=500&status=completed "HTTP/1.1 200 OK"
+2026-11-03 15:25:16,504 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=20&offset=0 "HTTP/1.1 200 OK"
+2026-11-03 15:27:07,880 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=20&offset=0 "HTTP/1.1 200 OK"
+2026-11-03 15:48:12,695 | INFO     | httpx | HTTP Request: POST https://intlstagingapi.bigship.in/api/get-order-list "HTTP/1.1 200 OK"
+2026-11-03 15:48:13,975 | INFO     | httpx | HTTP Request: POST https://intlstagingapi.bigship.in/api/get-order-list "HTTP/1.1 200 OK"
+2026-11-03 15:48:31,407 | INFO     | sentence_transformers.SentenceTransformer | Load pretrained SentenceTransformer: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+2026-11-03 15:48:32,299 | INFO     | httpx | HTTP Request: POST https://intlstagingapi.bigship.in/api/get-order-list "HTTP/1.1 200 OK"
+2026-11-03 15:48:34,018 | INFO     | httpx | HTTP Request: POST https://intlstagingapi.bigship.in/api/get-order-list "HTTP/1.1 200 OK"
+2026-11-03 15:48:35,828 | INFO     | module.report_memory.embed | multilingual model loaded: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00,  6.76it/s]Batches: 100%|##########| 1/1 [00:00<00:00,  6.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 55.51it/s]
+2026-11-03 15:48:37,057 | INFO     | httpx | HTTP Request: POST https://intlstagingapi.bigship.in/api/get-order-list "HTTP/1.1 200 OK"
+2026-11-03 15:48:37,059 | INFO     | module.shipments.fetch | Shipment API page=1 per_page=1 rows=1 total=50 ms=781
+2026-11-03 15:48:40,108 | INFO     | httpx | HTTP Request: POST https://intlstagingapi.bigship.in/api/get-order-list "HTTP/1.1 200 OK"
+2026-11-03 15:48:40,148 | INFO     | module.shipments.fetch | Shipment API page=1 per_page=50 rows=50 total=50 ms=3077
+2026-11-03 15:48:40,158 | INFO     | module.shipments.fetch | Shipment fetch complete: total=50 requests=2 page_size=50 clamped=False attempts=1 ms=3875
+2026-11-03 15:50:17,518 | INFO     | httpx | HTTP Request: POST https://intlstagingapi.bigship.in/api/get-order-list "HTTP/1.1 200 OK"
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 88.73it/s]
+2026-11-03 15:56:18,935 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=20&offset=0 "HTTP/1.1 200 OK"
+2026-11-03 15:56:25,905 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=20&offset=0 "HTTP/1.1 200 OK"
+2026-11-03 15:57:15,554 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=20&offset=0 "HTTP/1.1 200 OK"
+2026-11-03 15:57:42,445 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=20&offset=0 "HTTP/1.1 200 OK"
+2026-11-03 16:00:08,353 | INFO     | httpx | HTTP Request: GET https://voiceai.bigship.direct/v1/admin/call-logs?type=all&limit=20&offset=0 "HTTP/1.1 200 OK"

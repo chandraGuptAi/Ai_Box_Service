@@ -1,0 +1,18 @@
+2026-11-03 14:41:36,639 | INFO     | module_loader | Loaded module: attachments
+2026-11-03 14:41:36,641 | INFO     | module_loader | Loaded module: privacy
+2026-11-03 14:41:36,642 | INFO     | module_loader | Loaded module: shipments
+2026-11-03 14:41:36,643 | INFO     | module_loader | Loaded module: report_memory
+2026-11-03 14:41:36,644 | INFO     | module_loader | Loaded module: health
+2026-11-03 14:41:36,646 | INFO     | module_loader | Loaded module: channel_wise_report
+2026-11-03 14:41:36,648 | INFO     | module_loader | Loaded module: audit_log
+INFO:     Started server process [47580]
+INFO:     Waiting for application startup.
+2026-11-03 14:41:39,473 | INFO     | module.privacy | started (local name detector loaded)
+2026-11-03 14:41:39,637 | INFO     | module.shipments | started (Bigship API: https://intlstagingapi.bigship.in)
+2026-11-03 14:41:39,638 | INFO     | module.report_memory | started (4 questions, semantic=True)
+2026-11-03 14:41:39,770 | INFO     | module.channel_wise_report | started (Bigship API: https://intlstagingapi.bigship.in)
+2026-11-03 14:41:39,903 | INFO     | module.audit_log | started (Voice AI: https://voiceai.bigship.direct)
+INFO:     Application startup complete.
+ERROR:    [Errno 10048] error while attempting to bind on address ('127.0.0.1', 8100): [winerror 10048] only one usage of each socket address (protocol/network address/port) is normally permitted
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.

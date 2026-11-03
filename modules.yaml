@@ -39,3 +39,8 @@ modules:
     timeout_seconds: 15
     orders_page_size: 1000     # 1st call's perPage; if totalRecords is larger, a 2nd call asks perPage=totalRecords
     orders_max_records: 5000   # larger channels get 413 instead of a huge response
+
+  audit_log:
+    enabled: true   # /api/audit_log/*: AI calling (Voice AI) call logs, analyses, recordings; X-Audit-Key required
+    base_url: https://voiceai.bigship.direct   # overridden by VOICEAI_BASE_URL in .env
+    timeout_seconds: 30
