@@ -42,7 +42,7 @@ async def upload(request: Request, user: str = Depends(owner), file: UploadFile 
         chunks, size = [], 0
         while chunk := await file.read(1024 * 1024):
             size += len(chunk)
-            if size > backend.settings.ATTACHMENT_MAX_BYTES:
+            if 0 < backend.settings.ATTACHMENT_MAX_BYTES < size:
                 raise HTTPException(413, 'Attachment exceeds upload size limit')
             chunks.append(chunk)
         return await run_in_threadpool(backend.upload, user, file.filename or 'attachment', b''.join(chunks))

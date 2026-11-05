@@ -10,9 +10,10 @@ from pathlib import Path
 
 from fastapi import HTTPException
 
-MAX_UNPACKED = 80 * 1024 * 1024
+MAX_UNPACKED = 200 * 1024 * 1024  # zip-bomb guard: ~20x a 10 MB upload
 MAX_UNITS = 100
-MAX_CELLS = 100000
+MAX_CELLS = 500000
+MAX_STYLED_ROWS = 200  # per-cell styling is only kept for the header/layout region of each sheet
 MAX_TEXT = 500000
 MAX_PIXELS = 25000000
 IMAGE_FORMATS = {'PNG', 'JPEG', 'WEBP', 'TIFF', 'GIF', 'BMP'}
@@ -61,7 +62,6 @@ def inspect(blob, ocr_language='eng'):
             raise HTTPException(415, 'Legacy DOC/XLS/PPT requires conversion to DOCX/XLSX/PPTX first')
         else:
             result = image(blob, ocr_language)
-        limit(len(str(result)) > 8 * 1024 * 1024, 'Extracted attachment exceeds context limits')
         text_size = sum(len(u.get('text', '')) for u in result['units'])
         limit(text_size > MAX_TEXT, 'Attachment text exceeds extraction limits')
         result['complete'] = True
@@ -203,13 +203,13 @@ def excel(blob):
             total += sheet.max_row * sheet.max_column
             limit(total > MAX_CELLS or sheet.max_column > 200, 'Workbook exceeds cell/column limits')
             rows, cells = [], []
-            for row in sheet:
+            for row_index, row in enumerate(sheet):
                 rows.append([scalar(cached[sheet.title][c.coordinate].value) for c in row])
                 for c in row:
-                    if c.value is None and not c.has_style:
-                        continue
                     formula = c.value if c.data_type == 'f' else None
                     formulas = formulas or bool(formula)
+                    if row_index >= MAX_STYLED_ROWS or (c.value is None and not c.has_style):
+                        continue
                     cells.append({'cell': c.coordinate, 'value': scalar(cached[sheet.title][c.coordinate].value),
                         'formula': formula, 'number_format': c.number_format,
                         'font': {'name': c.font.name, 'size': c.font.sz, 'bold': c.font.bold, 'color': color(c.font.color)},

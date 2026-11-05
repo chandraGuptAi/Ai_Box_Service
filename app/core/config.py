@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     SERVICE_TOKEN: str = ""
     MODULES_FILE: Path = BASE_DIR / "modules.yaml"
     ATTACHMENT_STORAGE_DIR: Path = BASE_DIR / 'data' / 'attachments'
-    ATTACHMENT_MAX_BYTES: int = 20 * 1024 * 1024
+    ATTACHMENT_MAX_BYTES: int = 10 * 1024 * 1024  # 0 = no upload size limit
     ATTACHMENT_TTL_SECONDS: int = 86400
     ATTACHMENT_OCR_LANGUAGE: str = 'eng'
     ATTACHMENT_VISION_BASE_URL: str = ''

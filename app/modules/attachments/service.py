@@ -58,7 +58,7 @@ class Service:
     def upload(self, owner, name, blob):
         if not blob:
             raise HTTPException(422, 'Attachment is empty')
-        if len(blob) > self.settings.ATTACHMENT_MAX_BYTES:
+        if 0 < self.settings.ATTACHMENT_MAX_BYTES < len(blob):
             raise HTTPException(413, 'Attachment exceeds upload size limit')
         meta = self.store.create(owner, name, blob, lambda b: extract.inspect(b, self.settings.ATTACHMENT_OCR_LANGUAGE))
         return self.summary(meta)
