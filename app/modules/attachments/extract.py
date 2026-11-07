@@ -35,8 +35,18 @@ def archive_type(blob):
         if '[Content_Types].xml' in names:
             from defusedxml import ElementTree
             types = ElementTree.fromstring(z.read('[Content_Types].xml'))
-            if any(any(term in part.get('ContentType', '').lower() for term in
-                       ('macroenabled', 'vbaproject', 'activex', 'oleobject')) for part in types):
+            ns = '{http://schemas.openxmlformats.org/package/2006/content-types}'
+            defaults = {part.get('Extension', '').lower(): part.get('ContentType', '')
+                        for part in types if part.tag == ns + 'Default'}
+            overrides = {part.get('PartName', '').lstrip('/'): part.get('ContentType', '')
+                         for part in types if part.tag == ns + 'Override'}
+            # Exporters may declare unused macro/binary defaults in normal XLSX files.
+            # Inspect each existing part's effective type; an Override wins over Default.
+            content_types = [overrides.get(part.filename,
+                             defaults.get(part.filename.rsplit('.', 1)[-1].lower(), ''))
+                             for part in info if not part.is_dir()]
+            if any(any(term in content_type.lower() for term in
+                       ('macroenabled', 'vbaproject', 'activex', 'oleobject')) for content_type in content_types):
                 raise HTTPException(415, 'Macro-enabled or executable Office content is not supported')
         if any('vbaproject' in part.filename.lower() or '/activex/' in part.filename.lower() or '/embeddings/' in part.filename.lower()
                or (part.filename.lower().endswith('.bin') and '/printersettings/' not in part.filename.lower())

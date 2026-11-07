@@ -230,6 +230,29 @@ def test_rejects_bad_archives_empty_uploads_and_legacy_files(client):
     assert response.status_code == 415
 
 
+@pytest.mark.parametrize('active_macro_type', [False, True])
+def test_office_content_types_only_reject_actual_macro_parts(client, active_macro_type):
+    from xml.etree import ElementTree as ET
+    ns = '{http://schemas.openxmlformats.org/package/2006/content-types}'
+    output = io.BytesIO()
+    with zipfile.ZipFile(io.BytesIO(xlsx())) as source, zipfile.ZipFile(output, 'w') as target:
+        for entry in source.infolist():
+            content = source.read(entry.filename)
+            if entry.filename == '[Content_Types].xml':
+                types = ET.fromstring(content)
+                ET.SubElement(types, ns + 'Default', Extension='bin',
+                              ContentType='application/vnd.ms-excel.sheet.binary.macroEnabled.main')
+                if active_macro_type:
+                    for part in types:
+                        if part.get('PartName') == '/xl/workbook.xml':
+                            part.set('ContentType', 'application/vnd.ms-excel.sheet.macroEnabled.main+xml')
+                content = ET.tostring(types)
+            target.writestr(entry, content)
+    response = client.post('/api/attachments', headers=USER,
+                           files={'file': ('export.xlsx', output.getvalue())})
+    assert response.status_code == (415 if active_macro_type else 201), response.text
+
+
 def test_empty_office_embedding_directories_are_not_embedded_files(client):
     from pptx import Presentation
     deck = Presentation()
