@@ -1,0 +1,12 @@
+INFO:     127.0.0.1:62243 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62243 - "POST /api/attachments HTTP/1.1" 201 Created
+INFO:     127.0.0.1:62243 - "DELETE /api/attachments/1151072fdd7b4b4798b8e9242e43ecca HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:54485 - "GET /api/channel_wise_report/preview-count?from_date=2026-11-01&to_date=2026-11-07&status_type=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56261 - "POST /api/attachments HTTP/1.1" 201 Created
+INFO:     127.0.0.1:56391 - "POST /api/attachments/planning-context HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63581 - "POST /api/privacy/filter HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61130 - "POST /api/attachments/validate-report-plan HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61131 - "POST /api/attachments/execute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64196 - "GET /api/channel_wise_report/preview-count?from_date=2026-11-01&to_date=2026-11-07&status_type=0 HTTP/1.1" 502 Bad Gateway
+INFO:     127.0.0.1:62837 - "GET /api/channel_wise_report/preview-count?from_date=2026-11-01&to_date=2026-11-07&status_type=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64694 - "GET /api/channel_wise_report/preview-count?from_date=2026-11-01&to_date=2026-11-07&status_type=0 HTTP/1.1" 200 OK

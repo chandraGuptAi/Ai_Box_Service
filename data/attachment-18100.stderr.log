@@ -1,0 +1,19 @@
+2026-11-07 10:34:34,366 | INFO     | module_loader | Loaded module: attachments
+2026-11-07 10:34:34,366 | INFO     | module_loader | Loaded module: privacy
+2026-11-07 10:34:34,366 | INFO     | module_loader | Loaded module: shipments
+2026-11-07 10:34:34,366 | INFO     | module_loader | Loaded module: report_memory
+2026-11-07 10:34:34,366 | INFO     | module_loader | Loaded module: health
+2026-11-07 10:34:34,366 | INFO     | module_loader | Loaded module: channel_wise_report
+2026-11-07 10:34:34,366 | INFO     | module_loader | Loaded module: audit_log
+INFO:     Started server process [19524]
+INFO:     Waiting for application startup.
+2026-11-07 10:34:36,921 | INFO     | module.privacy | started (local name detector loaded)
+2026-11-07 10:34:37,070 | INFO     | module.shipments | started (Bigship API: https://intlstagingapi.bigship.in)
+2026-11-07 10:34:37,072 | INFO     | module.report_memory | started (4 questions, semantic=True)
+2026-11-07 10:34:37,195 | INFO     | module.channel_wise_report | started (Bigship API: https://intlstagingapi.bigship.in)
+2026-11-07 10:34:37,320 | INFO     | module.audit_log | started (Voice AI: https://voiceai.bigship.direct)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:18100 (Press CTRL+C to quit)
+2026-11-07 10:35:09,333 | INFO     | httpx | HTTP Request: POST https://intlstagingapi.bigship.in/api/get-order-list "HTTP/1.1 200 OK"
+2026-11-07 11:44:30,805 | INFO     | httpx | HTTP Request: POST https://intlstagingapi.bigship.in/api/get-order-list "HTTP/1.1 200 OK"
+2026-11-07 12:10:01,904 | INFO     | httpx | HTTP Request: POST https://intlstagingapi.bigship.in/api/get-order-list "HTTP/1.1 200 OK"
