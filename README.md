@@ -278,3 +278,11 @@ For example: `/api/audit_log/call-logs/export/csv?status=completed&date_from=202
 The export fetches all matching pages; table `limit` and `offset` are ignored.
 Nested analysis/recording values are JSON cells. UTF-8 BOM supports Excel, and
 formula-like text is prefixed with an apostrophe for safe spreadsheet opening.
+
+## Meta integration (WhatsApp Business, Instagram, Facebook Pages)
+
+`/api/meta/*` lets each seller connect their own Meta business accounts; a background worker syncs their
+insights into the AI_python_backend PostgreSQL database (`DATABASE_URL`, tables `meta_*`), and
+`POST /api/meta/report-context` serves them to the report engine. Without `DATABASE_URL` and
+`META_TOKEN_ENCRYPTION_KEYS` the module stays disabled and nothing else is affected. Setup, Meta App
+Dashboard steps, API contract, security model and the pending gateway changes: [META_INTEGRATION.md](META_INTEGRATION.md).

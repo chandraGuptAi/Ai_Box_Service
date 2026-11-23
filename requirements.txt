@@ -3,6 +3,11 @@ uvicorn[standard]>=0.30
 pydantic-settings>=2.4
 pyyaml>=6.0
 
+# Meta integration: PostgreSQL + token encryption
+psycopg[binary]>=3.2,<4
+psycopg-pool>=3.2,<4
+cryptography>=43
+
 # dev
 pytest>=8.0
 httpx>=0.27

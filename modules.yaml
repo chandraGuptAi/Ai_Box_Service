@@ -44,3 +44,7 @@ modules:
     enabled: true   # /api/audit_log/*: AI calling (Voice AI) call logs, analyses, recordings; X-Audit-Key required
     base_url: https://voiceai.bigship.direct   # overridden by VOICEAI_BASE_URL in .env
     timeout_seconds: 30
+
+  meta_integration:
+    enabled: true   # /api/meta/*: seller WhatsApp/Instagram/Facebook connections + insights (META_* in .env)
+    prefix: /meta   # disabled automatically (endpoints answer META_PLATFORM_NOT_CONFIGURED) until configured
