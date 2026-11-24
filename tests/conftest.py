@@ -9,6 +9,10 @@ os.environ['ATTACHMENT_VISION_API_KEY'] = ''
 # Never touch the developer's shared (AI_python_backend) database: Meta tests use META_TEST_DATABASE_URL.
 os.environ['DATABASE_URL'] = ''
 os.environ['META_DATABASE_URL'] = ''
+os.environ['EMAIL_DATABASE_URL'] = ''
+# AI assistant: never call the real AI; tests opt in with a fake key and transport.
+os.environ['AI_ASSISTANT_AI_API_KEY'] = ''
+os.environ['AI_ASSISTANT_DATABASE_URL'] = ''
 # Report memory: spelling similarity only and a throwaway database, unless a test opts in.
 os.environ['REPORT_MEMORY_SEMANTIC'] = 'false'
 import tempfile

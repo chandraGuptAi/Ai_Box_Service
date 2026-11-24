@@ -48,3 +48,23 @@ modules:
   meta_integration:
     enabled: true   # /api/meta/*: seller WhatsApp/Instagram/Facebook connections + insights (META_* in .env)
     prefix: /meta   # disabled automatically (endpoints answer META_PLATFORM_NOT_CONFIGURED) until configured
+
+  email_integration:
+    enabled: true   # /api/email/*: seller Gmail/Outlook mailboxes + report emails (EMAIL_* in .env)
+    prefix: /email  # disabled automatically (endpoints answer EMAIL_NOT_CONFIGURED) until configured
+
+  ai_assistant:
+    enabled: true   # POST /api/assistant/ask: emails, messages, medicine info... done directly (AI_ASSISTANT_* in .env)
+    prefix: /assistant
+
+  channel_insights:
+    enabled: true   # POST /api/channel-insights/ask: "AI Insights" box on the Channel Orders page
+    prefix: /channel-insights
+    base_url: https://intlstagingapi.bigship.in   # overridden by BIGSHIP_API_BASE_URL in .env
+    timeout_seconds: 20
+    orders_page_size: 1000
+    orders_max_records: 5000
+    high_value_cod: 3000       # COD orders at or above this many rupees count as high risk
+    rto_rate: 0.25             # COD savings estimate: share of unconfirmed COD orders that come back,
+    confirm_reduction: 0.5     #   how much a confirmation call cuts that share,
+    rto_cost: 150              #   and rupees lost on one returned order (forward + return shipping)

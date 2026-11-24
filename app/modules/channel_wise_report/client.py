@@ -13,10 +13,12 @@ class BigshipChannelClient:
         """Fetch the caller's connected channels using their own Bigship token."""
         return await self._request("GET", "/api/channel", authorization) or []
 
-    async def list_channel_orders(self, authorization: str, channel_id: int | str, status: str,
+    async def list_channel_orders(self, authorization: str, channel_id: int | str | None, status: str,
                                   page: int, per_page: int) -> dict[str, Any]:
-        """One page of a channel's store orders: ``{"getOrderList": [...], "totalRecords": n}``."""
-        body = {"page": page, "perPage": per_page, "status": status, "channel_id": channel_id}
+        """One page of store orders: ``{"getOrderList": [...], "totalRecords": n}``; channel_id None = all stores."""
+        body: dict[str, Any] = {"page": page, "perPage": per_page, "status": status}
+        if channel_id is not None:
+            body["channel_id"] = channel_id
         return await self._request("POST", "/api/channel/orders/list", authorization, json=body) or {}
 
     async def count_shipments(self, authorization: str, from_utc: str, to_utc_exclusive: str, status_type: int) -> int:
