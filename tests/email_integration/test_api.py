@@ -254,3 +254,15 @@ def test_the_sign_in_tab_can_only_be_sent_to_a_mail_app(client):
     other = client.post(f"/api/email/connect/transactions/{tx}/next",
                         json={"url": "https://mail.google.com/mail/#drafts"}, headers=seller("S2"))
     assert other.status_code == 400 and other.json()["detail"]["code"] == "EMAIL_TRANSACTION_INVALID"
+
+
+def test_the_sign_in_tab_can_be_sent_back_to_the_permission_screen(client):
+    """Drafts permission unticked: the page sends the same tab to a new sign-in through the old attempt."""
+    tx = client.post("/api/email/connect/gmail/start", headers=seller()).json()["transaction_id"]
+    again = client.post("/api/email/connect/gmail/start", headers=seller()).json()["authorization_url"]
+    assert urlparse(again).hostname == "accounts.google.com"
+    assert client.post(f"/api/email/connect/transactions/{tx}/next", json={"url": again},
+                       headers=seller()).status_code == 204
+    bad = client.post(f"/api/email/connect/transactions/{tx}/next",
+                      json={"url": "http://accounts.google.com/o/oauth2"}, headers=seller())
+    assert bad.status_code == 422                                   # https only

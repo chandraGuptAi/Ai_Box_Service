@@ -13,6 +13,7 @@ os.environ['EMAIL_DATABASE_URL'] = ''
 # AI assistant: never call the real AI; tests opt in with a fake key and transport.
 os.environ['AI_ASSISTANT_AI_API_KEY'] = ''
 os.environ['AI_ASSISTANT_DATABASE_URL'] = ''
+os.environ['CHANNEL_INSIGHTS_DATABASE_URL'] = ''
 # Report memory: spelling similarity only and a throwaway database, unless a test opts in.
 os.environ['REPORT_MEMORY_SEMANTIC'] = 'false'
 import tempfile

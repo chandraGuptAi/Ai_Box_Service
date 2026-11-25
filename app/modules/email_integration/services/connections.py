@@ -29,8 +29,10 @@ from ..providers import ProviderError
 
 logger = get_logger("module.email_integration.connections")
 
-# The sign-in tab may only be sent to the mail apps' own pages (never an arbitrary URL).
+# The sign-in tab may only be sent to the mail apps' own pages (never an arbitrary URL): the draft, or the
+# provider's sign-in screen again when the user unticked the "manage drafts" permission.
 DRAFT_HOSTS = {"mail.google.com", "outlook.office.com", "outlook.office365.com", "outlook.live.com"}
+SIGN_IN_HOSTS = {"accounts.google.com", "login.microsoftonline.com"}
 
 
 def connection_view(row: dict[str, Any]) -> dict[str, Any]:
@@ -101,8 +103,8 @@ class ConnectionService:
     async def set_next_url(self, seller_id: str, transaction_id: str, url: str) -> None:
         """The AI Box page tells the sign-in tab (via the transaction) to open the finished draft."""
         parsed = urlparse(url)
-        if parsed.scheme != "https" or parsed.hostname not in DRAFT_HOSTS:
-            raise EmailError("EMAIL_INVALID_REQUEST", "Only Gmail / Outlook draft links are allowed.")
+        if parsed.scheme != "https" or parsed.hostname not in DRAFT_HOSTS | SIGN_IN_HOSTS:
+            raise EmailError("EMAIL_INVALID_REQUEST", "Only Gmail / Outlook draft or sign-in links are allowed.")
         if not await self.ctx.repo.set_next_url(seller_id, transaction_id, url):
             raise EmailError("EMAIL_TRANSACTION_INVALID")
 
@@ -216,7 +218,8 @@ def callback_page(ok: bool, message: str, state: str | None = None) -> str:
       .then(function (d) {{
         if (d && d.url) {{ location.replace(d.url); return; }}
         if (++tries < 120) {{ setTimeout(ask, 1500); return; }}
-        document.getElementById("msg").textContent = "Your draft is ready in AI Box. You can close this tab.";
+        document.getElementById("msg").textContent =
+          "If your draft did not open, go back to AI Box: it shows the draft or what went wrong.";
       }})
       .catch(function () {{ if (++tries < 120) setTimeout(ask, 1500); }});
   }}

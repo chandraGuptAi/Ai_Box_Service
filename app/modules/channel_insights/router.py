@@ -8,9 +8,11 @@ from .service import SUGGESTIONS
 router = APIRouter()
 
 
-@router.get("/suggestions", response_model=list[str], summary="The suggested questions shown under the box")
-async def suggestions() -> list[str]:
-    return SUGGESTIONS
+@router.get("/suggestions", response_model=list[str],
+            summary="Suggested questions under the box (channel_insight_suggestions table)")
+async def suggestions(request: Request) -> list[str]:
+    service = getattr(request.app.state, "channel_insights_service", None)
+    return await service.suggestions() if service is not None else SUGGESTIONS
 
 
 @router.post("/ask", response_model=InsightResponse,

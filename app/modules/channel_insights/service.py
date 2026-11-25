@@ -13,14 +13,8 @@ from .schemas import Action, InsightResponse, Metric, Order, Package
 
 logger = logging.getLogger("module.channel_insights")
 
-SUGGESTIONS = [
-    "What should I ship today?",
-    "Which orders are high risk?",
-    "How much can I save by confirming COD?",
-    "Summarise today's orders",
-]
-_SUGGESTION_OF: dict[Intent, str] = {
-    "ship": SUGGESTIONS[0], "risk": SUGGESTIONS[1], "cod": SUGGESTIONS[2], "summary": SUGGESTIONS[3]}
+#: Chips when the channel_insight_suggestions table cannot be read (no database, database down).
+SUGGESTIONS = ["Which orders are high risk?"]
 
 _TITLES: dict[Intent, str] = {
     "ship": "Ready to ship", "risk": "High-risk orders", "cod": "COD confirmation savings",
@@ -59,6 +53,7 @@ class Service:
     def __init__(self, client: BigshipChannelClient, rules: Rules, page_size: int = 1000,
                  max_records: int = 5000) -> None:
         self.client, self.rules, self.page_size, self.max_records = client, rules, page_size, max_records
+        self.suggestion_store = None
 
     async def open_orders(self, authorization: str, channel_id: int | None) -> tuple[list[dict[str, Any]], int]:
         """Unshipped store orders (every store, or one), latest data from Bigship. Returns (rows, totalRecords)."""
@@ -76,12 +71,28 @@ class Service:
                 rows.append(raw)
         return rows, total
 
-    async def ask(self, authorization: str, question: str, channel_id: int | None, assistant) -> InsightResponse:
+    async def facts(self, authorization: str, channel_id: int | None) -> tuple[Facts, int, int]:
+        """Facts about the open orders, plus (rows read, totalRecords)."""
         rows, total = await self.open_orders(authorization, channel_id)
         orders = [o for o in (to_open_order(r, self.rules) for r in rows) if o is not None]
         orders.sort(key=lambda o: o.order_date or datetime.max.replace(tzinfo=timezone.utc))
-        facts = Facts(orders, self.rules, datetime.now(timezone.utc))
+        return Facts(orders, self.rules, datetime.now(timezone.utc)), len(rows), total
 
+    async def suggestions(self) -> list[str]:
+        """Active chips from the channel_insight_suggestions table; the fixed list without a database."""
+        if self.suggestion_store is None:
+            return SUGGESTIONS
+        try:
+            return await self.suggestion_store.list()
+        except Exception as exc:  # noqa: BLE001 - chips must never break the page
+            logger.warning("channel insight suggestions fell back to the fixed list: %s", type(exc).__name__)
+            return SUGGESTIONS
+
+    async def ask(self, authorization: str, question: str, channel_id: int | None, assistant) -> InsightResponse:
+        facts, read, total = await self.facts(authorization, channel_id)
+        orders = facts.orders
+
+        chips = await self.suggestions()
         intent = detect_intent(question)
         draft = self._draft(intent, facts)
         answer, ai_written = await self._phrase(assistant, question, intent, facts, draft)
@@ -90,9 +101,9 @@ class Service:
             intent=intent, question=question, title=_TITLES[intent], answer=answer, ai_written=ai_written,
             metrics=self._metrics(intent, facts), highlight=self._highlight(intent, facts),
             actions=self._actions(intent, facts),
-            follow_ups=[s for s in SUGGESTIONS if s != _SUGGESTION_OF.get(intent)][:3],
+            follow_ups=[s for s in chips if detect_intent(s) != intent][:3],
             orders=[_order(o) for o in orders[:ORDERS_RETURNED]], open_orders=len(orders),
-            partial=total > len(rows), generated_at=facts.now)
+            partial=total > read, generated_at=facts.now)
 
     # ---- built-in wording: used as the AI's draft and when the AI is unavailable ----
 

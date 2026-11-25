@@ -98,7 +98,7 @@ def test_what_to_ship_counts_buckets_and_reads_every_store(bigship, ai):
         ("book", "ready", 3), ("show", "ready", 3), ("call", "cod", 3), ("show", "needs_fixing", 1)]
     assert data["open_orders"] == 7 and data["partial"] is False   # the voided order is left out
     assert bigship.bodies == [{"page": 1, "perPage": 1000, "status": "Unshipped"}]
-    assert "What should I ship today?" not in data["follow_ups"] and len(data["follow_ups"]) == 3
+    assert data["follow_ups"] == ["Which orders are high risk?"]   # the chips, minus the one just asked
 
 
 def test_ai_never_sees_customer_details(bigship, ai):
@@ -176,3 +176,28 @@ def test_bigship_rejects_the_token(monkeypatch):
 def test_rupees_uses_indian_grouping():
     assert [rupees(v) for v in (0, 999, 1000, 167000, 12345678.4)] == [
         "₹0", "₹999", "₹1,000", "₹1,67,000", "₹1,23,45,678"]
+
+
+
+class FakeSuggestions:
+    def __init__(self, chips):
+        self.chips = chips
+
+    async def list(self):
+        if isinstance(self.chips, Exception):
+            raise self.chips
+        return self.chips
+
+
+def test_suggestions_come_from_the_table(bigship, monkeypatch):
+    monkeypatch.setattr(insights_module, "SUGGESTION_STORE", FakeSuggestions(["Which orders are high risk?", "Hi"]))
+    with TestClient(create_app()) as c:
+        assert c.get("/api/channel-insights/suggestions").json() == ["Which orders are high risk?", "Hi"]
+
+
+def test_suggestions_fall_back_without_a_database(bigship, monkeypatch):
+    with TestClient(create_app()) as c:                              # no DATABASE_URL in tests
+        assert c.get("/api/channel-insights/suggestions").json() == ["Which orders are high risk?"]
+    monkeypatch.setattr(insights_module, "SUGGESTION_STORE", FakeSuggestions(RuntimeError("db down")))
+    with TestClient(create_app()) as c:
+        assert c.get("/api/channel-insights/suggestions").json() == ["Which orders are high risk?"]
